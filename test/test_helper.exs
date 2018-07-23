@@ -1,0 +1,5 @@
+Logger.configure(level: :info)
+ExUnit.configure(timeout: :infinity)
+ExUnit.start()
+{:ok, _pid} = MoneyBin.Test.Repo.start_link()
+Ecto.Adapters.SQL.Sandbox.mode(MoneyBin.Test.Repo, :manual)
