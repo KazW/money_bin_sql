@@ -26,6 +26,12 @@ defmodule MoneyBin do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+
+      defmacro coalesce(left, right) do
+        quote do
+          fragment("COALESCE(?, ?)", unquote(left), unquote(right))
+        end
+      end
     end
   end
 
