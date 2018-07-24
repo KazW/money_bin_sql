@@ -15,20 +15,20 @@ defmodule MoneyBin.Accounts do
       |> join(:left, [acc], je in subquery(journal_query(id)), acc.id == je.account_id)
       |> join(:left, [acc, _], sj in subquery(settled_journal_query(id)), acc.id == sj.account_id)
       |> select([acc, je, sj], %{
-        id: acc.id,
-        debit_sum: je.debit_sum,
-        settled_debit_sum: sj.debit_sum,
-        credit_sum: je.credit_sum,
-        settled_credit_sum: sj.credit_sum,
-        balance: je.balance,
-        settled_balance: sj.balance,
-        transaction_count: je.transaction_count,
-        settled_transaction_count: sj.transaction_count,
-        inserted_at: acc.inserted_at,
-        updated_at: acc.updated_at
+        id: type(acc.id, :binary_id),
+        debit_sum: type(je.debit_sum, :decimal),
+        settled_debit_sum: type(sj.debit_sum, :decimal),
+        credit_sum: type(je.credit_sum, :decimal),
+        settled_credit_sum: type(sj.credit_sum, :decimal),
+        balance: type(je.balance, :decimal),
+        settled_balance: type(sj.balance, :decimal),
+        transaction_count: type(je.transaction_count, :integer),
+        settled_transaction_count: type(sj.transaction_count, :integer),
+        inserted_at: type(acc.inserted_at, :utc_datetime),
+        updated_at: type(acc.updated_at, :utc_datetime)
       })
 
-  def journal_query(id),
+  defp journal_query(id),
     do:
       from(je in @schemas[:journal_entry])
       |> where([je], je.account_id == ^id)
@@ -40,7 +40,7 @@ defmodule MoneyBin.Accounts do
         transaction_count: count(je.account_id)
       })
 
-  def settled_journal_query(id),
+  defp settled_journal_query(id),
     do:
       journal_query(id)
       |> where([je], not is_nil(je.settled_at) and je.settled_at <= fragment("NOW()"))
