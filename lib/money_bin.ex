@@ -1,4 +1,30 @@
 defmodule MoneyBin do
+  def config_variables do
+    quote do
+      @repo Application.get_env(:money_bin, MoneyBin)[:repo]
+      @tables Keyword.merge(
+                [
+                  ledger: "ledgers",
+                  transaction: "transactions",
+                  journal_entry: "journal_entries",
+                  group: "groups",
+                  group_link: "ledger_group_links"
+                ],
+                Application.get_env(:money_bin, MoneyBin)[:tables] || []
+              )
+      @schemas Keyword.merge(
+                 [
+                   ledger: MoneyBin.Schemas.Ledger,
+                   transaction: MoneyBin.Schemas.Transaction,
+                   journal_entry: MoneyBin.Schemas.JournalEntry,
+                   group: MoneyBin.Schemas.Group,
+                   group_link: MoneyBin.Schemas.GroupLink
+                 ],
+                 Application.get_env(:money_bin, MoneyBin)[:schemas] || []
+               )
+    end
+  end
+
   def schema do
     quote do
       use MoneyBin, :config_variables
@@ -21,7 +47,7 @@ defmodule MoneyBin do
       use MoneyBin, :config_variables
 
       alias Decimal, as: D
-      alias MoneyBin.Account
+      alias MoneyBin.Ledger
 
       import Ecto
       import Ecto.Changeset
@@ -38,19 +64,9 @@ defmodule MoneyBin do
   def model do
     quote do
       use Ecto.Schema
-      use MoneyBin, :config_variables
-
       import Ecto.Changeset
 
       @primary_key false
-    end
-  end
-
-  def config_variables do
-    quote do
-      @repo Application.get_env(:money_bin, MoneyBin)[:repo]
-      @tables Application.get_env(:money_bin, MoneyBin)[:tables]
-      @schemas Application.get_env(:money_bin, MoneyBin)[:schemas]
     end
   end
 

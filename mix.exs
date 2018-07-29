@@ -16,7 +16,7 @@ defmodule MoneyBin.MixProject do
       aliases: aliases(),
 
       # Hex
-      description: "Double entry based accounting for Ecto.",
+      description: "Flexible double entry based accounting for Ecto.",
       package: package(),
 
       # Docs

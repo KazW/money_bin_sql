@@ -1,7 +1,7 @@
 # MoneyBin
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Double entry based accounting for Ecto.
+Flexible double entry based accounting for Ecto.
 
 
 ## Installation

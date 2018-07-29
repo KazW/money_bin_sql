@@ -1,7 +1,7 @@
-defmodule MoneyBin.Schemas.Account do
+defmodule MoneyBin.Schemas.Ledger do
   use MoneyBin, :schema
 
-  schema @tables[:account] do
+  schema @tables[:ledger] do
     timestamps()
   end
 

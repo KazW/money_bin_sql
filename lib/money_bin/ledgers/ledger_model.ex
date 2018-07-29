@@ -1,4 +1,4 @@
-defmodule MoneyBin.Account do
+defmodule MoneyBin.Ledger do
   use MoneyBin, :model
 
   embedded_schema do

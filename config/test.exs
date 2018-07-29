@@ -1,22 +1,7 @@
 use Mix.Config
 
 # MoneyBin configuration
-config :money_bin, MoneyBin,
-  repo: MoneyBin.Test.Repo,
-  schemas: [
-    account: MoneyBin.Schemas.Account,
-    transaction: MoneyBin.Schemas.Transaction,
-    journal_entry: MoneyBin.Schemas.JournalEntry,
-    group: MoneyBin.Schemas.Group,
-    group_link: MoneyBin.Schemas.GroupLink
-  ],
-  tables: [
-    account: "accounts",
-    transaction: "transactions",
-    journal_entry: "journal_entries",
-    group: "groups",
-    group_link: "account_group_links"
-  ]
+config :money_bin, MoneyBin, repo: MoneyBin.Test.Repo
 
 # Ecto configuration.
 config :money_bin, ecto_repos: [MoneyBin.Test.Repo]
