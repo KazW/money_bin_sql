@@ -10,6 +10,7 @@ defmodule MoneyBin.Ledgers do
     do:
       from(ledger in @schemas[:ledger])
       |> join(:left, [ledger], members in assoc(ledger, :members))
+      |> join(:left, [_, mem], acc in assoc(mem, :account))
       |> join(
         :left,
         [_, mem],
@@ -18,7 +19,7 @@ defmodule MoneyBin.Ledgers do
       )
       |> join(
         :left,
-        [_, _, debacc],
+        [_, _, _, debacc],
         debent in ^@schemas[:journal_entry],
         debent.account_id == debacc.id
       )
@@ -30,13 +31,12 @@ defmodule MoneyBin.Ledgers do
       )
       |> join(
         :left,
-        [_, _, _, _, credacc],
+        [_, _, _, _, _, credacc],
         credent in ^@schemas[:journal_entry],
         credent.account_id == credacc.id
       )
-      |> join(:left, [_, mem], acc in assoc(mem, :account))
       |> group_by([ledger], ledger.id)
-      |> select_merge([_, _, _, debent, _, credent, acc], %{
+      |> select_merge([_, _, acc, _, debent, _, credent], %{
         value:
           fragment(
             "? + ?",
