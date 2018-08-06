@@ -1,8 +1,8 @@
-defmodule MoneyBin.Test.Repo.Migrations.CreateLedgers do
+defmodule MoneyBin.Test.Repo.Migrations.CreateAccounts do
   use Ecto.Migration
 
   def change do
-    create table(:ledgers) do
+    create table(:accounts) do
       timestamps()
     end
   end

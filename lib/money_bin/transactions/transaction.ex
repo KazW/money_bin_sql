@@ -45,6 +45,7 @@ defmodule MoneyBin.Transaction do
   defp amount_sum(entries, key),
     do:
       entries
-      |> Enum.map(fn x -> x[key] || D.new("0") end)
+      |> Enum.map(& &1[key])
+      |> Enum.filter(&(!is_nil(&1)))
       |> Enum.reduce(&D.add/2)
 end

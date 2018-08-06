@@ -4,21 +4,21 @@ defmodule MoneyBin do
       @repo Application.get_env(:money_bin, MoneyBin)[:repo]
       @tables Keyword.merge(
                 [
-                  ledger: "ledgers",
+                  account: "accounts",
                   transaction: "transactions",
                   journal_entry: "journal_entries",
-                  chart: "charts",
-                  chart_member: "chart_members"
+                  ledger: "ledgers",
+                  ledger_member: "ledger_members"
                 ],
                 Application.get_env(:money_bin, MoneyBin)[:tables] || []
               )
       @schemas Keyword.merge(
                  [
-                   ledger: MoneyBin.Ledger,
+                   account: MoneyBin.Account,
                    transaction: MoneyBin.Transaction,
                    journal_entry: MoneyBin.JournalEntry,
-                   chart: MoneyBin.Chart,
-                   chart_member: MoneyBin.ChartMember
+                   ledger: MoneyBin.Ledger,
+                   ledger_member: MoneyBin.LedgerMember
                  ],
                  Application.get_env(:money_bin, MoneyBin)[:schemas] || []
                )
@@ -47,7 +47,7 @@ defmodule MoneyBin do
       use MoneyBin, :config_variables
 
       alias Decimal, as: D
-      alias MoneyBin.Ledger
+      alias MoneyBin.Account
       alias MoneyBin.Transaction
 
       import Ecto

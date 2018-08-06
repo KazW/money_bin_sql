@@ -3,7 +3,7 @@ defmodule MoneyBin.JournalEntry do
 
   schema @tables[:journal_entry] do
     belongs_to(:transaction, @schemas[:transaction])
-    belongs_to(:ledger, @schemas[:ledger])
+    belongs_to(:account, @schemas[:account])
 
     field(:credit_amount, :decimal, default: nil)
     field(:debit_amount, :decimal, default: nil)
@@ -11,8 +11,8 @@ defmodule MoneyBin.JournalEntry do
     timestamps()
   end
 
-  @fields [:transaction_id, :ledger_id, :debit_amount, :credit_amount]
-  @required_fields [:ledger_id]
+  @fields [:transaction_id, :account_id, :debit_amount, :credit_amount]
+  @required_fields [:account_id]
 
   @doc false
   def changeset(entry \\ %__MODULE__{}, attrs) do
@@ -20,8 +20,8 @@ defmodule MoneyBin.JournalEntry do
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> constrained_assoc_cast(:transaction)
-    |> constrained_assoc_cast(:ledger)
-    |> unique_constraint(:ledger_id, name: :journal_entries_transaction_id_ledger_id_index)
+    |> constrained_assoc_cast(:account)
+    |> unique_constraint(:account_id, name: :journal_entries_transaction_id_account_id_index)
     |> validate_amounts
     |> validate_greater_than_zero
   end

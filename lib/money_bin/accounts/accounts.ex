@@ -1,18 +1,18 @@
-defmodule MoneyBin.Ledgers do
+defmodule MoneyBin.Accounts do
   use MoneyBin, :service
 
-  def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert!
+  def create(attrs \\ %{}), do: @schemas[:account].changeset(attrs) |> @repo.insert!
 
-  def find(%_{ledger_id: id}), do: find(id)
-  def find(id), do: id |> ledger_query |> @repo.one
+  def find(%_{account_id: id}), do: find(id)
+  def find(id), do: id |> account_query |> @repo.one
 
-  def ledger_query(id),
+  def account_query(id),
     do:
       from(
-        ledger in @schemas[:ledger],
-        left_join: entry in assoc(ledger, :entries),
-        group_by: ledger.id,
-        where: ledger.id == ^id,
+        account in @schemas[:account],
+        left_join: entry in assoc(account, :entries),
+        group_by: account.id,
+        where: account.id == ^id,
         select_merge: %{
           debit_sum: coalesce(sum(entry.debit_amount), 0),
           credit_sum: coalesce(sum(entry.credit_amount), 0),
