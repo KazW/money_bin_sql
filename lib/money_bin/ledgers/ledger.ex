@@ -1,4 +1,4 @@
-defmodule MoneyBin.Schemas.Ledger do
+defmodule MoneyBin.Ledger do
   use MoneyBin, :schema
 
   schema @tables[:ledger] do

@@ -1,10 +1,10 @@
 defmodule MoneyBin.Ledgers do
   use MoneyBin, :service
 
-  def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert! |> to_model
+  def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert!
 
   def find(%_{ledger_id: id}), do: find(id)
-  def find(id), do: id |> ledger_query |> @repo.one |> to_model
+  def find(id), do: id |> ledger_query |> @repo.one
 
   def ledger_query(id),
     do:
@@ -25,6 +25,4 @@ defmodule MoneyBin.Ledgers do
           transaction_count: count(entry.transaction_id)
         }
       )
-
-  defp to_model(led) when is_map(led), do: Ledger.new(led)
 end

@@ -4,7 +4,7 @@ defmodule MoneyBin.TransactionsTest do
   alias MoneyBin.Ledgers
   alias MoneyBin.Transactions
   alias MoneyBin.Transaction
-  alias MoneyBin.Schemas
+  alias MoneyBin.JournalEntry
 
   describe "transactions" do
     def fixture_set(amount \\ "1.5") do
@@ -25,21 +25,21 @@ defmodule MoneyBin.TransactionsTest do
     end
 
     def ledger_entry_count(id) do
-      from(je in Schemas.JournalEntry)
+      from(je in JournalEntry)
       |> where([je], je.ledger_id == ^id)
       |> select([je], count(je.id))
       |> Repo.one()
     end
 
     def transaction_entry_count(id) do
-      from(je in Schemas.JournalEntry)
+      from(je in JournalEntry)
       |> where([je], je.transaction_id == ^id)
       |> select([je], count(je.id))
       |> Repo.one()
     end
 
     def journal_entry_for(tra_id, led_id) do
-      from(je in Schemas.JournalEntry)
+      from(je in JournalEntry)
       |> where([je], je.transaction_id == ^tra_id)
       |> where([je], je.ledger_id == ^led_id)
       |> Repo.one()

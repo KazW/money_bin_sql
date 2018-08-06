@@ -1,4 +1,4 @@
-defmodule MoneyBin.Schemas.Transaction do
+defmodule MoneyBin.Transaction do
   use MoneyBin, :schema
 
   schema @tables[:transaction] do

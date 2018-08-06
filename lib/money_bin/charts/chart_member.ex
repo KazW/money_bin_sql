@@ -1,4 +1,4 @@
-defmodule MoneyBin.Schemas.ChartMember do
+defmodule MoneyBin.ChartMember do
   use MoneyBin, :schema
 
   schema @tables[:chart_member] do

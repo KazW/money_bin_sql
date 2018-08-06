@@ -1,6 +1,4 @@
-require IEx
-
-defmodule MoneyBin.Schemas.JournalEntry do
+defmodule MoneyBin.JournalEntry do
   use MoneyBin, :schema
 
   schema @tables[:journal_entry] do

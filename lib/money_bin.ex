@@ -14,11 +14,11 @@ defmodule MoneyBin do
               )
       @schemas Keyword.merge(
                  [
-                   ledger: MoneyBin.Schemas.Ledger,
-                   transaction: MoneyBin.Schemas.Transaction,
-                   journal_entry: MoneyBin.Schemas.JournalEntry,
-                   chart: MoneyBin.Schemas.Chart,
-                   chart_member: MoneyBin.Schemas.ChartMember
+                   ledger: MoneyBin.Ledger,
+                   transaction: MoneyBin.Transaction,
+                   journal_entry: MoneyBin.JournalEntry,
+                   chart: MoneyBin.Chart,
+                   chart_member: MoneyBin.ChartMember
                  ],
                  Application.get_env(:money_bin, MoneyBin)[:schemas] || []
                )
@@ -61,18 +61,7 @@ defmodule MoneyBin do
       end
 
       def find(%_{id: id}), do: find(id)
-
-      defp to_model(%_{} = struct), do: Map.from_struct(struct) |> to_model
-      defp to_model(other) when is_nil(other), do: other
-    end
-  end
-
-  def model do
-    quote do
-      use Ecto.Schema
-      import Ecto.Changeset
-
-      @primary_key false
+      defp unwrap({_, res}), do: res
     end
   end
 
