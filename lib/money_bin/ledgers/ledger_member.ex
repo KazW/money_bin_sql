@@ -20,6 +20,6 @@ defmodule MoneyBin.LedgerMember do
     |> validate_required(@fields)
     |> constrained_assoc_cast(:account)
     |> constrained_assoc_cast(:ledger)
-    |> unique_constraint(:name, name: :account_ledger_members_ledger_id_name_index)
+    |> unique_constraint(:name, name: :ledger_members_ledger_id_name_index)
   end
 end

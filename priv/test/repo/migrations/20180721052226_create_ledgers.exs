@@ -6,7 +6,7 @@ defmodule MoneyBin.Test.Repo.Migrations.CreateLedgers do
       timestamps()
     end
 
-    create table(:account_ledger_links) do
+    create table(:ledger_members) do
       add(:account_id, references(:accounts), null: false)
       add(:ledger_id, references(:ledgers), null: false)
       add(:credit, :boolean, null: false, default: false)
@@ -15,6 +15,6 @@ defmodule MoneyBin.Test.Repo.Migrations.CreateLedgers do
       timestamps()
     end
 
-    create(unique_index(:account_ledger_links, [:ledger_id, :name]))
+    create(unique_index(:ledger_members, [:ledger_id, :name]))
   end
 end
