@@ -112,10 +112,14 @@ defmodule MoneyBin.TransactionsTest do
     end
 
     test "should support complex transactions" do
-      provider_led = Ledgers.create() # payment provider
-      provider_fee_led = Ledgers.create() # fees collected by payment provider
-      user_led = Ledgers.create() # User's ledger
-      user_fee_led = Ledgers.create() # Fees paid for user
+      # payment provider
+      provider_led = Ledgers.create()
+      # fees collected by payment provider
+      provider_fee_led = Ledgers.create()
+      # User's ledger
+      user_led = Ledgers.create()
+      # Fees paid for user
+      user_fee_led = Ledgers.create()
 
       transaction =
         Transactions.create(%{
