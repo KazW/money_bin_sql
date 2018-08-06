@@ -2,9 +2,22 @@ defmodule MoneyBin.Ledger do
   use MoneyBin, :schema
 
   schema @tables[:ledger] do
+    has_many(:members, @schemas[:ledger_member])
+    has_many(:accounts, through: [:members, :account])
+
+    field(:value, :decimal, virtual: true, default: 0)
+
+    field(:account_count, :integer, virtual: true, default: 0)
+    field(:entry_count, :integer, virtual: true, default: 0)
+
     timestamps()
   end
 
   @doc false
-  def changeset(record \\ %__MODULE__{}, attrs), do: record |> cast(attrs, [])
+  def changeset(record \\ %__MODULE__{}, attrs),
+    do:
+      record
+      |> cast(attrs, [])
+      |> cast_assoc(:members, required: true)
+      |> validate_length(:members, min: 2)
 end

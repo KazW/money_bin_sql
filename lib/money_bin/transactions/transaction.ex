@@ -25,12 +25,12 @@ defmodule MoneyBin.Transaction do
     |> unique_constraint(:reversal_for_transaction_id)
     |> cast_assoc(:entries, required: true)
     |> validate_length(:entries, min: 2)
-    |> validate_amount
+    |> balance_and_set_amount
   end
 
-  defp validate_amount(%{valid?: false} = changeset), do: changeset
+  defp balance_and_set_amount(%{valid?: false} = changeset), do: changeset
 
-  defp validate_amount(%{valid?: true, changes: changes} = changeset) do
+  defp balance_and_set_amount(%{valid?: true, changes: changes} = changeset) do
     entries = changes[:entries] |> Enum.map(& &1.changes)
     debits = amount_sum(entries, :debit_amount)
     credits = amount_sum(entries, :credit_amount)

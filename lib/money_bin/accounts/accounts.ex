@@ -4,25 +4,24 @@ defmodule MoneyBin.Accounts do
   def create(attrs \\ %{}), do: @schemas[:account].changeset(attrs) |> @repo.insert!
 
   def find(%_{account_id: id}), do: find(id)
-  def find(id), do: id |> account_query |> @repo.one
+  def find(id), do: account_query() |> where([account], account.id == ^id) |> @repo.one
 
-  def account_query(id),
+  def account_query,
     do:
       from(
         account in @schemas[:account],
         left_join: entry in assoc(account, :entries),
         group_by: account.id,
-        where: account.id == ^id,
         select_merge: %{
-          debit_sum: coalesce(sum(entry.debit_amount), 0),
-          credit_sum: coalesce(sum(entry.credit_amount), 0),
+          debit_total: coalesce(sum(entry.debit_amount), 0),
+          credit_total: coalesce(sum(entry.credit_amount), 0),
           balance:
             fragment(
               "? - ?",
               coalesce(sum(entry.debit_amount), 0),
               coalesce(sum(entry.credit_amount), 0)
             ),
-          transaction_count: count(entry.transaction_id)
+          entry_count: count(entry.id)
         }
       )
 end

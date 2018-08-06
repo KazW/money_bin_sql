@@ -10,11 +10,10 @@ defmodule MoneyBin.Test.Repo.Migrations.CreateLedgers do
       add(:account_id, references(:accounts), null: false)
       add(:ledger_id, references(:ledgers), null: false)
       add(:credit, :boolean, null: false, default: false)
-      add(:name, :string, null: false)
 
       timestamps()
     end
 
-    create(unique_index(:ledger_members, [:ledger_id, :name]))
+    create(unique_index(:ledger_members, [:ledger_id, :account_id]))
   end
 end

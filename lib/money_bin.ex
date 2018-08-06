@@ -60,6 +60,7 @@ defmodule MoneyBin do
         end
       end
 
+      def find(%Ecto.Changeset{} = changeset), do: changeset
       def find(%_{id: id}), do: find(id)
       defp unwrap({_, res}), do: res
     end

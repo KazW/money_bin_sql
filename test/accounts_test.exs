@@ -16,20 +16,20 @@ defmodule MoneyBin.AccountsTest do
       assert account.id == found_account.id
     end
 
-    test "debit_sum should be 0 for a new account" do
+    test "debit_total should be 0 for a new account" do
       account = account_fixture()
       found_account = Accounts.find(account.id)
 
-      assert D.equal?(0, account.debit_sum)
-      assert D.equal?(0, found_account.debit_sum)
+      assert D.equal?(0, account.debit_total)
+      assert D.equal?(0, found_account.debit_total)
     end
 
-    test "credit_sum should be 0 for a new account" do
+    test "credit_total should be 0 for a new account" do
       account = account_fixture()
       found_account = Accounts.find(account.id)
 
-      assert D.equal?(0, account.credit_sum)
-      assert D.equal?(0, found_account.credit_sum)
+      assert D.equal?(0, account.credit_total)
+      assert D.equal?(0, found_account.credit_total)
     end
 
     test "balance should be 0 for a new account" do
@@ -40,12 +40,12 @@ defmodule MoneyBin.AccountsTest do
       assert D.equal?(0, found_account.balance)
     end
 
-    test "transaction_count should be 0 for a new account" do
+    test "entry_count should be 0 for a new account" do
       account = account_fixture()
       found_account = Accounts.find(account.id)
 
-      assert D.equal?(0, account.transaction_count)
-      assert D.equal?(0, found_account.transaction_count)
+      assert D.equal?(0, account.entry_count)
+      assert D.equal?(0, found_account.entry_count)
     end
   end
 end
