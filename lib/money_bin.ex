@@ -7,8 +7,8 @@ defmodule MoneyBin do
                   ledger: "ledgers",
                   transaction: "transactions",
                   journal_entry: "journal_entries",
-                  group: "groups",
-                  group_link: "ledger_group_links"
+                  chart: "charts",
+                  chart_member: "chart_members"
                 ],
                 Application.get_env(:money_bin, MoneyBin)[:tables] || []
               )
@@ -17,8 +17,8 @@ defmodule MoneyBin do
                    ledger: MoneyBin.Schemas.Ledger,
                    transaction: MoneyBin.Schemas.Transaction,
                    journal_entry: MoneyBin.Schemas.JournalEntry,
-                   group: MoneyBin.Schemas.Group,
-                   group_link: MoneyBin.Schemas.GroupLink
+                   chart: MoneyBin.Schemas.Chart,
+                   chart_member: MoneyBin.Schemas.ChartMember
                  ],
                  Application.get_env(:money_bin, MoneyBin)[:schemas] || []
                )
@@ -30,15 +30,15 @@ defmodule MoneyBin do
       use MoneyBin, :config_variables
       use Ecto.Schema
       import Ecto.Changeset
+      alias Decimal, as: D
 
       @primary_key {:id, :binary_id, autogenerate: true}
       @foreign_key_type :binary_id
 
       def constrained_assoc_cast(%{valid?: false} = changeset, _), do: changeset
 
-      def constrained_assoc_cast(%{valid?: true} = changeset, assoc) when is_atom(assoc) do
-        changeset |> cast_assoc(assoc) |> assoc_constraint(assoc)
-      end
+      def constrained_assoc_cast(%{valid?: true} = changeset, assoc) when is_atom(assoc),
+        do: changeset |> cast_assoc(assoc) |> assoc_constraint(assoc)
     end
   end
 
@@ -48,6 +48,7 @@ defmodule MoneyBin do
 
       alias Decimal, as: D
       alias MoneyBin.Ledger
+      alias MoneyBin.Transaction
 
       import Ecto
       import Ecto.Changeset
@@ -58,6 +59,11 @@ defmodule MoneyBin do
           fragment("COALESCE(?, ?)", unquote(left), unquote(right))
         end
       end
+
+      def find(%_{id: id}), do: find(id)
+
+      defp to_model(%_{} = struct), do: Map.from_struct(struct) |> to_model
+      defp to_model(other) when is_nil(other), do: other
     end
   end
 

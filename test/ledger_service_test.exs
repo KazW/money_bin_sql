@@ -5,24 +5,15 @@ defmodule MoneyBin.LedgersTest do
   alias MoneyBin.Ledger
 
   describe "ledgers" do
-    def ledger_fixture(attrs \\ %{}) do
-      attrs
-      |> Enum.into(%{})
-      |> Ledgers.create()
-    end
+    def ledger_fixture(attrs \\ %{}), do: Ledgers.create(attrs)
 
-    test "build should be return a valid changeset" do
-      changeset = Ledgers.build()
-
-      assert changeset.valid? == true
-    end
-
-    test "create should create an ledger" do
+    test "create should create a ledger" do
       ledger = Ledgers.create()
       found_ledger = Ledgers.find(ledger.id)
 
       assert %Ledger{} = ledger
       assert %Ledger{} = found_ledger
+      assert ledger.id == found_ledger.id
     end
 
     test "debit_sum should be 0 for a new ledger" do

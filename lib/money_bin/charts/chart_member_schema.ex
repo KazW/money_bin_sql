@@ -1,9 +1,9 @@
-defmodule MoneyBin.Schemas.GroupLink do
+defmodule MoneyBin.Schemas.ChartMember do
   use MoneyBin, :schema
 
-  schema @tables[:group_link] do
+  schema @tables[:chart_member] do
     belongs_to(:ledger, @schemas[:ledger])
-    belongs_to(:group, @schemas[:group])
+    belongs_to(:chart, @schemas[:chart])
 
     field(:credit, :boolean)
     field(:name, :string)
@@ -11,7 +11,7 @@ defmodule MoneyBin.Schemas.GroupLink do
     timestamps()
   end
 
-  @fields [:ledger_id, :group_id, :credit, :name]
+  @fields [:ledger_id, :chart_id, :credit, :name]
 
   @doc false
   def changeset(link \\ %__MODULE__{}, attrs) do
@@ -19,7 +19,7 @@ defmodule MoneyBin.Schemas.GroupLink do
     |> cast(attrs, @fields)
     |> validate_required(@fields)
     |> constrained_assoc_cast(:ledger)
-    |> constrained_assoc_cast(:group)
-    |> unique_constraint(:name, name: :ledger_group_links_group_id_name_index)
+    |> constrained_assoc_cast(:chart)
+    |> unique_constraint(:name, name: :ledger_chart_members_chart_id_name_index)
   end
 end

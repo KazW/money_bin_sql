@@ -6,9 +6,8 @@ defmodule MoneyBin.Test.Repo.Migrations.CreateJournalEntries do
       add(:transaction_id, references(:transactions), null: false)
       add(:ledger_id, references(:ledgers), null: false)
 
-      add(:settled_at, :utc_datetime, default: fragment("now()"))
-      add(:debit_amount, :decimal, scale: 8, precision: 16, null: false)
-      add(:credit_amount, :decimal, scale: 8, precision: 16, null: false)
+      add(:debit_amount, :decimal, scale: 8, precision: 16)
+      add(:credit_amount, :decimal, scale: 8, precision: 16)
 
       timestamps()
     end

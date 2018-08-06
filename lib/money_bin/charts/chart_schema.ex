@@ -1,7 +1,7 @@
-defmodule MoneyBin.Schemas.Group do
+defmodule MoneyBin.Schemas.Chart do
   use MoneyBin, :schema
 
-  schema @tables[:group] do
+  schema @tables[:chart] do
     timestamps()
   end
 

@@ -1,36 +1,23 @@
 defmodule MoneyBin.Ledgers do
   use MoneyBin, :service
 
-  def build(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs)
-
-  def create(attrs \\ %{}), do: build(attrs) |> @repo.insert! |> to_model
+  def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert! |> to_model
 
   def find(%_{ledger_id: id}), do: find(id)
-  def find(%_{id: id}), do: find(id)
   def find(id), do: id |> ledger_query |> @repo.one |> to_model
 
   def ledger_query(id),
     do:
-      from(acc in @schemas[:ledger])
-      |> join(:left, [acc], je in subquery(journal_query(id)), acc.id == je.ledger_id)
-      |> join(
-        :left,
-        [acc, _],
-        sje in subquery(settled_journal_query(id)),
-        acc.id == sje.ledger_id
-      )
-      |> select([acc, je, sje], %{
-        id: type(acc.id, :binary_id),
-        debit_sum: type(je.debit_sum, :decimal),
-        settled_debit_sum: type(sje.debit_sum, :decimal),
-        credit_sum: type(je.credit_sum, :decimal),
-        settled_credit_sum: type(sje.credit_sum, :decimal),
-        balance: type(fragment("? - ?", je.debit_sum, je.credit_sum), :decimal),
-        settled_balance: type(fragment("? - ?", sje.debit_sum, sje.credit_sum), :decimal),
-        transaction_count: type(je.transaction_count, :integer),
-        settled_transaction_count: type(sje.transaction_count, :integer),
-        inserted_at: type(acc.inserted_at, :utc_datetime),
-        updated_at: type(acc.updated_at, :utc_datetime)
+      from(led in @schemas[:ledger])
+      |> join(:left, [led], jr in subquery(journal_query(id)), led.id == jr.ledger_id)
+      |> select([led, jr], %{
+        id: type(led.id, :binary_id),
+        debit_sum: type(jr.debit_sum, :decimal),
+        credit_sum: type(jr.credit_sum, :decimal),
+        balance: type(fragment("? - ?", jr.debit_sum, jr.credit_sum), :decimal),
+        transaction_count: type(jr.transaction_count, :integer),
+        inserted_at: type(led.inserted_at, :utc_datetime),
+        updated_at: type(led.updated_at, :utc_datetime)
       })
 
   defp journal_query(id),
@@ -44,12 +31,5 @@ defmodule MoneyBin.Ledgers do
         transaction_count: count(je.transaction_id)
       })
 
-  defp settled_journal_query(id),
-    do:
-      journal_query(id)
-      |> where([je], not is_nil(je.settled_at) and je.settled_at <= fragment("NOW()"))
-
-  defp to_model(%_{} = acc), do: Map.from_struct(acc) |> to_model
-  defp to_model(acc) when is_map(acc), do: Ledger.new(acc)
-  defp to_model(acc), do: acc
+  defp to_model(led) when is_map(led), do: Ledger.new(led)
 end

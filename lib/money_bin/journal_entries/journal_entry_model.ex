@@ -1,12 +1,13 @@
-defmodule MoneyBin.Ledger do
+defmodule MoneyBin.JournalEntry do
   use MoneyBin, :model
 
   embedded_schema do
     field(:id, :binary_id)
-    field(:debit_sum, :decimal, default: 0)
-    field(:credit_sum, :decimal, default: 0)
-    field(:balance, :decimal, default: 0)
-    field(:transaction_count, :integer, default: 0)
+
+    field(:ledger_id, :binary_id)
+    field(:transaction_id, :binary_id)
+    field(:debit_amount, :decimal)
+    field(:credit_amount, :decimal)
 
     timestamps(type: :utc_datetime)
   end
