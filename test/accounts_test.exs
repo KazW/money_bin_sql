@@ -1,8 +1,8 @@
 defmodule MoneyBin.AccountsTest do
   use MoneyBin.DataCase
 
-  alias MoneyBin.Accounts
   alias MoneyBin.Account
+  alias MoneyBin.Accounts
 
   describe "accounts" do
     def account_fixture(attrs \\ %{}), do: Accounts.create(attrs)

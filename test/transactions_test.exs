@@ -2,9 +2,9 @@ defmodule MoneyBin.TransactionsTest do
   use MoneyBin.DataCase
 
   alias MoneyBin.Accounts
-  alias MoneyBin.Transactions
-  alias MoneyBin.Transaction
   alias MoneyBin.JournalEntry
+  alias MoneyBin.Transaction
+  alias MoneyBin.Transactions
 
   describe "transactions" do
     def fixture_set(amount \\ "1.5") do
@@ -25,21 +25,24 @@ defmodule MoneyBin.TransactionsTest do
     end
 
     def account_entry_count(id) do
-      from(je in JournalEntry)
+      query = from(je in JournalEntry)
+      query
       |> where([je], je.account_id == ^id)
       |> select([je], count(je.id))
       |> Repo.one()
     end
 
     def transaction_entry_count(id) do
-      from(je in JournalEntry)
+      query = from(je in JournalEntry)
+      query
       |> where([je], je.transaction_id == ^id)
       |> select([je], count(je.id))
       |> Repo.one()
     end
 
     def journal_entry_for(tra_id, led_id) do
-      from(je in JournalEntry)
+      query = from(je in JournalEntry)
+      query
       |> where([je], je.transaction_id == ^tra_id)
       |> where([je], je.account_id == ^led_id)
       |> Repo.one()

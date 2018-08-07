@@ -15,7 +15,7 @@ defmodule MoneyBin.Accounts do
       %MoneyBin.Account{}
 
   """
-  def create(attrs \\ %{}), do: @schemas[:account].changeset(attrs) |> @repo.insert!
+  def create(attrs \\ %{}), do: attrs |> @schemas[:account].changeset |> @repo.insert!
 
   @doc """
   Retrieves a `MoneyBin.Account` with the aggregate data included, uses `account_query/0`.

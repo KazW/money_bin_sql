@@ -2,12 +2,12 @@ defmodule MoneyBin.LedgersTest do
   use MoneyBin.DataCase
 
   alias MoneyBin.Accounts
-  alias MoneyBin.Transactions
-  alias MoneyBin.Ledgers
   alias MoneyBin.Ledger
+  alias MoneyBin.Ledgers
+  alias MoneyBin.Transactions
 
   describe "transactions" do
-    def account_set() do
+    def account_set do
       %{
         provider_acc: Accounts.create(),
         provider_fees: Accounts.create(),

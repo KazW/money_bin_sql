@@ -20,7 +20,8 @@ defmodule MoneyBin.Transactions do
       })
       %MoneyBin.Transaction{}
   """
-  def create(attrs \\ %{}), do: @schemas[:transaction].changeset(attrs) |> @repo.insert |> unwrap
+  def create(attrs \\ %{}),
+    do: attrs |> @schemas[:transaction].changeset |> @repo.insert |> unwrap
 
   @doc """
   Retrieves a `MoneyBin.Transaction`.

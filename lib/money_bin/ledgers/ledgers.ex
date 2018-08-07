@@ -24,7 +24,7 @@ defmodule MoneyBin.Ledgers do
       })
       %MoneyBin.Ledger{}
   """
-  def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert! |> find()
+  def create(attrs \\ %{}), do: attrs |> @schemas[:ledger].changeset |> @repo.insert! |> find()
 
   @doc """
   Retrieves a `MoneyBin.Ledger` with the aggregate data included, uses `ledger_query/0`.
@@ -45,7 +45,8 @@ defmodule MoneyBin.Ledgers do
   """
   def ledger_query,
     do:
-      from(ledger in @schemas[:ledger])
+      query = from(ledger in @schemas[:ledger])
+      query
       |> ledger_joins
       |> group_by([ledger], ledger.id)
       |> select_merge([_, _, acc, _, de, _, ce], %{

@@ -3,6 +3,7 @@
   inputs: [
     "mix.exs",
     ".formatter.exs",
+    ".credo.exs",
     "config/*.exs",
     "lib/**/*.{ex,exs}",
     "priv/**/*.{ex,exs}",

@@ -14,12 +14,13 @@ defmodule MoneyBin.DataCase do
 
   use ExUnit.CaseTemplate
   alias Ecto.Adapters.SQL.Sandbox
+  alias Ecto.Changeset
   alias MoneyBin.Test.Repo
 
   using do
     quote do
-      alias MoneyBin.Test.Repo
       alias Decimal, as: D
+      alias MoneyBin.Test.Repo
 
       import Ecto
       import Ecto.Changeset
@@ -49,7 +50,7 @@ defmodule MoneyBin.DataCase do
 
   """
   def errors_on(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
+    Changeset.traverse_errors(changeset, fn {message, opts} ->
       Enum.reduce(opts, message, fn {key, value}, acc ->
         String.replace(acc, "%{#{key}}", to_string(value))
       end)
