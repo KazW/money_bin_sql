@@ -3,7 +3,6 @@
 
 Flexible double entry based accounting for Ecto.
 
-
 ## Installation
 
 Add MoneyBin to your deps:
@@ -14,7 +13,7 @@ Add MoneyBin to your deps:
 Configure which repo MoneyBin should use:
 ```elixir
 # MoneyBin configuration
-config :money_bin, MoneyBin, repo: MyApp.Repo
+config :money_bin, :settings, repo: MyApp.Repo
 ```
 
 Generate a migration:
@@ -33,11 +32,14 @@ defmodule MyApp.Repo.Migrations.CreateMoneyBin do
 end
 ```
 
+## Documentation
+[Online (hex) Docs](https://hexdocs.pm/money_bin)
+
 ## Configuration
 These are the default configuration values, aside from repo, which must be provided. Setting table names through this interface configures both the schemas and migrations. Using schemas other than the default is not recommended.
 ```elixir
 # MoneyBin configuration
-config :money_bin, MoneyBin,
+config :money_bin, :settings,
   repo: MyApp.Repo,
   tables: [
     account: "accounts",

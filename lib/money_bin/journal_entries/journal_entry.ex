@@ -1,5 +1,6 @@
 defmodule MoneyBin.JournalEntry do
   use MoneyBin, :schema
+  @moduledoc false
 
   schema @tables[:journal_entry] do
     belongs_to(:transaction, @schemas[:transaction])
@@ -16,7 +17,6 @@ defmodule MoneyBin.JournalEntry do
   @fields [:transaction_id, :account_id, :debit_amount, :credit_amount]
   @required_fields [:account_id]
 
-  @doc false
   def changeset(entry \\ %__MODULE__{}, attrs) do
     entry
     |> cast(attrs, @fields)

@@ -1,7 +1,9 @@
 defmodule MoneyBin do
+  @moduledoc false
+
   def config_variables do
     quote do
-      @repo Application.get_env(:money_bin, MoneyBin)[:repo]
+      @repo Application.get_env(:money_bin, :settings)[:repo]
       @tables Keyword.merge(
                 [
                   account: "accounts",
@@ -10,7 +12,7 @@ defmodule MoneyBin do
                   ledger: "ledgers",
                   ledger_member: "ledger_members"
                 ],
-                Application.get_env(:money_bin, MoneyBin)[:tables] || []
+                Application.get_env(:money_bin, :settings)[:tables] || []
               )
       @schemas Keyword.merge(
                  [
@@ -20,7 +22,7 @@ defmodule MoneyBin do
                    ledger: MoneyBin.Ledger,
                    ledger_member: MoneyBin.LedgerMember
                  ],
-                 Application.get_env(:money_bin, MoneyBin)[:schemas] || []
+                 Application.get_env(:money_bin, :settings)[:schemas] || []
                )
     end
   end
@@ -35,9 +37,9 @@ defmodule MoneyBin do
       @primary_key {:id, :binary_id, autogenerate: true}
       @foreign_key_type :binary_id
 
-      def constrained_assoc_cast(%{valid?: false} = changeset, _), do: changeset
+      defp constrained_assoc_cast(%{valid?: false} = changeset, _), do: changeset
 
-      def constrained_assoc_cast(%{valid?: true} = changeset, assoc) when is_atom(assoc),
+      defp constrained_assoc_cast(%{valid?: true} = changeset, assoc) when is_atom(assoc),
         do: changeset |> cast_assoc(assoc) |> assoc_constraint(assoc)
     end
   end
@@ -54,7 +56,7 @@ defmodule MoneyBin do
       import Ecto.Changeset
       import Ecto.Query
 
-      defmacro coalesce(left, right) do
+      defmacrop coalesce(left, right) do
         quote do
           fragment("COALESCE(?, ?)", unquote(left), unquote(right))
         end
@@ -66,7 +68,6 @@ defmodule MoneyBin do
     end
   end
 
-  @doc false
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end

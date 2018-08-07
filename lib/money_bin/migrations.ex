@@ -1,6 +1,7 @@
 defmodule MoneyBin.Migrations do
   use MoneyBin, :config_variables
   use Ecto.Migration
+  @moduledoc false
 
   def change do
     create table(@tables[:account]) do

@@ -1,5 +1,6 @@
 defmodule MoneyBin.Ledger do
   use MoneyBin, :schema
+  @moduledoc false
 
   schema @tables[:ledger] do
     has_many(:members, @schemas[:ledger_member])
@@ -14,7 +15,6 @@ defmodule MoneyBin.Ledger do
     timestamps()
   end
 
-  @doc false
   def changeset(record \\ %__MODULE__{}, attrs),
     do:
       record

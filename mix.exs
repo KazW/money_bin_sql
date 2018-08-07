@@ -23,7 +23,8 @@ defmodule MoneyBin.MixProject do
       name: "MoneyBin",
       docs: [
         source_ref: "v#{@version}",
-        main: "MoneyBin",
+        main: "readme",
+        logo: "logo.png",
         canonical: "https://hexdocs.pm/money_bin",
         source_url: "https://github.com/KazW/money_bin",
         extras: ["README.md"]
@@ -50,7 +51,7 @@ defmodule MoneyBin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18", only: :dev},
+      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
       {:ecto, "~> 2.2"},
       {:postgrex, ">= 0.0.0"},
       {:poison, "~> 3.1"}

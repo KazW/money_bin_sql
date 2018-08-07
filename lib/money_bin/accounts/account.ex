@@ -1,5 +1,6 @@
 defmodule MoneyBin.Account do
   use MoneyBin, :schema
+  @moduledoc false
 
   schema @tables[:account] do
     has_many(:entries, @schemas[:journal_entry])
@@ -15,6 +16,5 @@ defmodule MoneyBin.Account do
     timestamps()
   end
 
-  @doc false
   def changeset(record \\ %__MODULE__{}, attrs), do: record |> cast(attrs, [])
 end

@@ -1,7 +1,7 @@
 use Mix.Config
 
 # MoneyBin configuration
-config :money_bin, MoneyBin, repo: MoneyBin.Test.Repo
+config :money_bin, :settings, repo: MoneyBin.Test.Repo
 
 # Ecto configuration.
 config :money_bin, ecto_repos: [MoneyBin.Test.Repo]

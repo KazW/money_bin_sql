@@ -1,11 +1,48 @@
 defmodule MoneyBin.Ledgers do
   use MoneyBin, :service
 
+  @moduledoc """
+  This module is the primary interface for creating and retrieving ledgers.
+  It also contains a query that can be used for preloading ecto associations
+  with aggregate data.
+  """
+
+  @doc """
+  Creates a `MoneyBin.Ledger`.
+
+  Must have at least 1 member accounts.
+  `credit` is set to false by default, representing an asset account that
+  increases in value when the account is debited. When `credit` is true,
+  the account increases in value when it is credited.
+
+  ## Examples
+      iex> MoneyBin.Ledgers.create(%{
+        members: [
+          %{account_id: provider_acc_id, credit: true},
+          %{account_id: provider_fees_id, credit: false}
+        ]
+      })
+      %MoneyBin.Ledger{}
+  """
   def create(attrs \\ %{}), do: @schemas[:ledger].changeset(attrs) |> @repo.insert! |> find()
 
+  @doc """
+  Retrieves a `MoneyBin.Ledger` with the aggregate data included, uses `ledger_query/0`.
+
+  ## Examples
+      iex> MoneyBin.Ledgers.find(ledger_id)
+      %MoneyBin.Ledger{}
+  """
   def find(%_{ledger_id: id}), do: find(id)
   def find(id), do: ledger_query() |> where([ledger], ledger.id == ^id) |> @repo.one
 
+  @doc """
+  An `Ecto.Query` to retrieve the aggregate information for a ledger.
+
+  ## Examples
+      iex> MoneyBin.Ledgers.ledger_query()
+      %Ecto.Query{}
+  """
   def ledger_query,
     do:
       from(ledger in @schemas[:ledger])

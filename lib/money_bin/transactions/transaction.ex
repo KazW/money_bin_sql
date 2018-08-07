@@ -1,5 +1,6 @@
 defmodule MoneyBin.Transaction do
   use MoneyBin, :schema
+  @moduledoc false
 
   schema @tables[:transaction] do
     has_many(:entries, @schemas[:journal_entry])
@@ -20,7 +21,6 @@ defmodule MoneyBin.Transaction do
 
   @fields [:reversal_for_transaction_id]
 
-  @doc false
   def changeset(transaction \\ %__MODULE__{}, attrs) do
     transaction
     |> cast(attrs, @fields)

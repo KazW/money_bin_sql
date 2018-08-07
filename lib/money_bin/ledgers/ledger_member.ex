@@ -1,5 +1,6 @@
 defmodule MoneyBin.LedgerMember do
   use MoneyBin, :schema
+  @moduledoc false
 
   schema @tables[:ledger_member] do
     belongs_to(:account, @schemas[:account])
