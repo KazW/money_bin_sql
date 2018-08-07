@@ -3,6 +3,9 @@ defmodule MoneyBin.Transaction do
 
   schema @tables[:transaction] do
     has_many(:entries, @schemas[:journal_entry])
+    has_many(:accounts, through: [:entries, :account])
+    has_many(:memberships, through: [:accounts, :memberships])
+    has_many(:ledgers, through: [:memberships, :ledger])
 
     belongs_to(
       :reversed_transaction,

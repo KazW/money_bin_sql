@@ -9,54 +9,59 @@ defmodule MoneyBin.Ledgers do
   def ledger_query,
     do:
       from(ledger in @schemas[:ledger])
-      |> join(:left, [ledger], members in assoc(ledger, :members))
-      |> join(:left, [_, mem], acc in assoc(mem, :account))
-      |> join(
-        :left,
-        [_, mem],
-        debacc in ^@schemas[:account],
-        mem.account_id == debacc.id and mem.credit == false
-      )
-      |> join(
-        :left,
-        [_, _, _, debacc],
-        debent in ^@schemas[:journal_entry],
-        debent.account_id == debacc.id
-      )
-      |> join(
-        :left,
-        [_, mem],
-        credacc in ^@schemas[:account],
-        mem.account_id == credacc.id and mem.credit == true
-      )
-      |> join(
-        :left,
-        [_, _, _, _, _, credacc],
-        credent in ^@schemas[:journal_entry],
-        credent.account_id == credacc.id
-      )
+      |> ledger_joins
       |> group_by([ledger], ledger.id)
-      |> select_merge([_, _, acc, _, debent, _, credent], %{
+      |> select_merge([_, _, acc, _, de, _, ce], %{
         value:
           fragment(
             "? + ?",
             fragment(
               "? - ?",
-              coalesce(sum(debent.debit_amount), 0),
-              coalesce(sum(debent.credit_amount), 0)
+              coalesce(sum(de.debit_amount), 0),
+              coalesce(sum(de.credit_amount), 0)
             ),
             fragment(
               "? - ?",
-              coalesce(sum(credent.credit_amount), 0),
-              coalesce(sum(credent.debit_amount), 0)
+              coalesce(sum(ce.credit_amount), 0),
+              coalesce(sum(ce.debit_amount), 0)
             )
           ),
         entry_count:
           fragment(
             "? + ?",
-            count(fragment("DISTINCT ?", debent.id)),
-            count(fragment("DISTINCT ?", credent.id))
+            count(fragment("DISTINCT ?", de.id)),
+            count(fragment("DISTINCT ?", ce.id))
           ),
         account_count: count(fragment("DISTINCT ?", acc.id))
       })
+
+  defp ledger_joins(query),
+    do:
+      query
+      |> join(:left, [ledger], members in assoc(ledger, :members))
+      |> join(:left, [_, mem], acc in assoc(mem, :account))
+      |> join(
+        :left,
+        [_, mem],
+        da in ^@schemas[:account],
+        mem.account_id == da.id and mem.credit == false
+      )
+      |> join(
+        :left,
+        [_, _, _, da],
+        de in ^@schemas[:journal_entry],
+        de.account_id == da.id
+      )
+      |> join(
+        :left,
+        [_, mem],
+        ca in ^@schemas[:account],
+        mem.account_id == ca.id and mem.credit == true
+      )
+      |> join(
+        :left,
+        [_, _, _, _, _, ca],
+        ce in ^@schemas[:journal_entry],
+        ce.account_id == ca.id
+      )
 end

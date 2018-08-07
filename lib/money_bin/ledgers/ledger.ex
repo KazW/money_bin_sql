@@ -4,9 +4,10 @@ defmodule MoneyBin.Ledger do
   schema @tables[:ledger] do
     has_many(:members, @schemas[:ledger_member])
     has_many(:accounts, through: [:members, :account])
+    has_many(:entries, through: [:accounts, :entries])
+    has_many(:transactions, through: [:entries, :transaction])
 
     field(:value, :decimal, virtual: true, default: 0)
-
     field(:account_count, :integer, virtual: true, default: 0)
     field(:entry_count, :integer, virtual: true, default: 0)
 

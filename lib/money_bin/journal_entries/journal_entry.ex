@@ -4,6 +4,8 @@ defmodule MoneyBin.JournalEntry do
   schema @tables[:journal_entry] do
     belongs_to(:transaction, @schemas[:transaction])
     belongs_to(:account, @schemas[:account])
+    has_many(:memberships, through: [:account, :memberships])
+    has_many(:ledgers, through: [:memberships, :ledger])
 
     field(:credit_amount, :decimal, default: nil)
     field(:debit_amount, :decimal, default: nil)
