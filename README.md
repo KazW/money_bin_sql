@@ -1,5 +1,5 @@
 # MoneyBin
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Ebert](https://ebertapp.io/github/KazW/money_bin.svg)](https://ebertapp.io/github/KazW/money_bin)
 
 Flexible double entry based accounting for Ecto.
 
