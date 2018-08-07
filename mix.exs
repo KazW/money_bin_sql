@@ -25,7 +25,7 @@ defmodule MoneyBin.MixProject do
         source_ref: "v#{@version}",
         main: "MoneyBin",
         canonical: "https://hexdocs.pm/money_bin",
-        source_url: "https://github.com/Money-Bin/money_bin",
+        source_url: "https://github.com/KazW/money_bin",
         extras: ["README.md"]
       ]
     ]

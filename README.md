@@ -8,7 +8,7 @@ Flexible double entry based accounting for Ecto.
 
 Add MoneyBin to your deps:
 ```elixir
-{:money_bin, "~> 0.1.0"}
+{:money_bin, "~> 0.0.1"}
 ```
 
 Configure which repo MoneyBin should use:
