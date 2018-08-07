@@ -1,4 +1,4 @@
-defmodule MoneyBin.Test.Repo.Migrations.CreateAccounts do
+defmodule MoneyBin.Test.Repo.Migrations.CreateMoneyBin do
   use Ecto.Migration
 
   def change do
