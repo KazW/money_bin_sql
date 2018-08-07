@@ -17,7 +17,7 @@ Configure which repo MoneyBin should use:
 config :money_bin, MoneyBin, repo: MyApp.Repo
 ```
 
-Then run:
+Generate a migration:
 ```shell
 mix ecto.gen.migration create_money_bin
 ```
@@ -34,7 +34,7 @@ end
 ```
 
 ## Configuration
-These are the default configuration values, aside from repo, which must be provided.
+These are the default configuration values, aside from repo, which must be provided. Setting table names through this interface configures both the schemas and migrations. Using schemas other than the default is not recommended.
 ```elixir
 # MoneyBin configuration
 config :money_bin, MoneyBin,
