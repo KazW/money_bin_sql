@@ -53,6 +53,7 @@ defmodule MoneyBin.MixProject do
     [
       {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:inch_ex, only: :docs},
       {:ecto, "~> 2.2"},
       {:postgrex, ">= 0.0.0"},
       {:poison, "~> 3.1"}

@@ -16,6 +16,7 @@ defmodule MoneyBin.Ledgers do
   the account increases in value when it is credited.
 
   ## Examples
+
       iex> MoneyBin.Ledgers.create(%{
         members: [
           %{account_id: provider_acc_id, credit: true},
@@ -23,6 +24,7 @@ defmodule MoneyBin.Ledgers do
         ]
       })
       %MoneyBin.Ledger{}
+
   """
   def create(attrs \\ %{}), do: attrs |> @schemas[:ledger].changeset |> @repo.insert! |> find()
 
@@ -30,8 +32,10 @@ defmodule MoneyBin.Ledgers do
   Retrieves a `MoneyBin.Ledger` with the aggregate data included, uses `ledger_query/0`.
 
   ## Examples
+
       iex> MoneyBin.Ledgers.find(ledger_id)
       %MoneyBin.Ledger{}
+
   """
   def find(%_{ledger_id: id}), do: find(id)
   def find(id), do: ledger_query() |> where([ledger], ledger.id == ^id) |> @repo.one
@@ -40,38 +44,41 @@ defmodule MoneyBin.Ledgers do
   An `Ecto.Query` to retrieve the aggregate information for a ledger.
 
   ## Examples
+
       iex> MoneyBin.Ledgers.ledger_query()
       %Ecto.Query{}
+
   """
-  def ledger_query,
-    do:
-      query = from(ledger in @schemas[:ledger])
-      query
-      |> ledger_joins
-      |> group_by([ledger], ledger.id)
-      |> select_merge([_, _, acc, _, de, _, ce], %{
-        value:
+  def ledger_query do
+    query = from(ledger in @schemas[:ledger])
+
+    query
+    |> ledger_joins
+    |> group_by([ledger], ledger.id)
+    |> select_merge([_, _, acc, _, de, _, ce], %{
+      value:
+        fragment(
+          "? + ?",
           fragment(
-            "? + ?",
-            fragment(
-              "? - ?",
-              coalesce(sum(de.debit_amount), 0),
-              coalesce(sum(de.credit_amount), 0)
-            ),
-            fragment(
-              "? - ?",
-              coalesce(sum(ce.credit_amount), 0),
-              coalesce(sum(ce.debit_amount), 0)
-            )
+            "? - ?",
+            coalesce(sum(de.debit_amount), 0),
+            coalesce(sum(de.credit_amount), 0)
           ),
-        entry_count:
           fragment(
-            "? + ?",
-            count(fragment("DISTINCT ?", de.id)),
-            count(fragment("DISTINCT ?", ce.id))
-          ),
-        account_count: count(fragment("DISTINCT ?", acc.id))
-      })
+            "? - ?",
+            coalesce(sum(ce.credit_amount), 0),
+            coalesce(sum(ce.debit_amount), 0)
+          )
+        ),
+      entry_count:
+        fragment(
+          "? + ?",
+          count(fragment("DISTINCT ?", de.id)),
+          count(fragment("DISTINCT ?", ce.id))
+        ),
+      account_count: count(fragment("DISTINCT ?", acc.id))
+    })
+  end
 
   defp ledger_joins(query),
     do:

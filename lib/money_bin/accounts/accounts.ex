@@ -21,8 +21,10 @@ defmodule MoneyBin.Accounts do
   Retrieves a `MoneyBin.Account` with the aggregate data included, uses `account_query/0`.
 
   ## Examples
+
       iex> MoneyBin.Accounts.find(account_id)
       %MoneyBin.Account{}
+
   """
   def find(%_{account_id: id}), do: find(id)
   def find(id), do: account_query() |> where([account], account.id == ^id) |> @repo.one
@@ -31,8 +33,10 @@ defmodule MoneyBin.Accounts do
   An `Ecto.Query` to retrieve the aggregate information for an account.
 
   ## Examples
+
       iex> MoneyBin.Accounts.account_query()
       %Ecto.Query{}
+
   """
   def account_query,
     do:

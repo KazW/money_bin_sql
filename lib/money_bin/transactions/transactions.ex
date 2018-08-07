@@ -12,6 +12,7 @@ defmodule MoneyBin.Transactions do
   `debit_amount` and `credit_amount` cannot be set to zero.
 
   ## Examples
+
       iex> MoneyBin.Transactions.create(%{
         entries: [
           %{account_id: user_account_id, credit_amount: "5"}
@@ -19,6 +20,7 @@ defmodule MoneyBin.Transactions do
         ]
       })
       %MoneyBin.Transaction{}
+
   """
   def create(attrs \\ %{}),
     do: attrs |> @schemas[:transaction].changeset |> @repo.insert |> unwrap
@@ -27,8 +29,10 @@ defmodule MoneyBin.Transactions do
   Retrieves a `MoneyBin.Transaction`.
 
   ## Examples
+
       iex> MoneyBin.Transactions.find(transaction_id)
       %MoneyBin.Transaction{}
+
   """
   def find(%_{transaction_id: id}), do: find(id)
   def find(id), do: @schemas[:transaction] |> @repo.get(id) |> @repo.preload(:entries)

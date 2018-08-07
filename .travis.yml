@@ -1,0 +1,26 @@
+language: elixir
+elixir: '1.7.2'
+otp_release: '21.0'
+
+install:
+  - mix local.rebar --force
+  - mix local.hex --force
+  - mix deps.get
+
+script:
+  - mix test
+
+after_script:
+  - mix deps.get --only docs
+  - MIX_ENV=docs mix inch.report
+
+matrix:
+  include:
+    - elixir: '1.7.2'
+      otp_release: '21.0'
+    - elixir: '1.6.6'
+      otp_release: '19.0'
+    - elixir: '1.6.6'
+      otp_release: '20.0'
+    - elixir: '1.6.6'
+      otp_release: '21.0'
