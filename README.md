@@ -1,5 +1,5 @@
 # MoneyBin
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/KazW/money_bin.svg?token=CRsKZKYLbnQZUawkaRLB&branch=master)](https://travis-ci.com/KazW/money_bin) [![Ebert](https://ebertapp.io/github/KazW/money_bin.svg)](https://ebertapp.io/github/KazW/money_bin) [![Inline docs](http://inch-ci.org/github/KazW/money_bin.svg)](http://inch-ci.org/github/KazW/money_bin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/KazW/money_bin.svg?token=CRsKZKYLbnQZUawkaRLB&branch=master)](https://travis-ci.com/KazW/money_bin) [![Ebert](https://ebertapp.io/github/KazW/money_bin.svg)](https://ebertapp.io/github/KazW/money_bin) [![Inline docs](https://inch-ci.org/github/KazW/money_bin.svg)](https://inch-ci.org/github/KazW/money_bin)
 
 Flexible double entry based accounting for Ecto.
 
@@ -21,7 +21,7 @@ Generate a migration:
 mix ecto.gen.migration create_money_bin
 ```
 
-Add the following to the change method:
+Modify it to be similar to this:
 ```elixir
 defmodule MyApp.Repo.Migrations.CreateMoneyBin do
   use Ecto.Migration
@@ -31,9 +31,6 @@ defmodule MyApp.Repo.Migrations.CreateMoneyBin do
   end
 end
 ```
-
-## Documentation
-[Online (hex) Docs](https://hexdocs.pm/money_bin)
 
 ## Configuration
 These are the default configuration values, aside from repo, which must be provided. Setting table names through this interface configures both the schemas and migrations. Using schemas other than the default is not recommended.
@@ -56,6 +53,12 @@ config :money_bin, :settings,
     ledger_member: MoneyBin.LedgerMember
   ]
 ```
+
+## Usage
+[GitHub link](USAGE.md) or [Hex link](usage.html)
+
+## Documentation
+[Hex Docs](https://hexdocs.pm/money_bin)
 
 ## License
 

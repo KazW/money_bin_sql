@@ -27,7 +27,10 @@ defmodule MoneyBin.MixProject do
         logo: "logo.png",
         canonical: "https://hexdocs.pm/money_bin",
         source_url: "https://github.com/KazW/money_bin",
-        extras: ["README.md"]
+        extras: [
+          "README.md",
+          "USAGE.md"
+        ]
       ]
     ]
   end
