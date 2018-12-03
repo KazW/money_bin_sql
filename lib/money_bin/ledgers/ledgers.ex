@@ -83,30 +83,30 @@ defmodule MoneyBin.Ledgers do
   defp ledger_joins(query),
     do:
       query
-      |> join(:left, [ledger], members in assoc(ledger, :members))
+      |> join(:left, [ledger], onmembers in assoc(ledger, :members))
       |> join(:left, [_, mem], acc in assoc(mem, :account))
       |> join(
         :left,
         [_, mem],
         da in ^@schemas[:account],
-        mem.account_id == da.id and mem.credit == false
+        on: mem.account_id == da.id and mem.credit == false
       )
       |> join(
         :left,
         [_, _, _, da],
         de in ^@schemas[:journal_entry],
-        de.account_id == da.id
+        on: de.account_id == da.id
       )
       |> join(
         :left,
         [_, mem],
         ca in ^@schemas[:account],
-        mem.account_id == ca.id and mem.credit == true
+        on: mem.account_id == ca.id and mem.credit == true
       )
       |> join(
         :left,
         [_, _, _, _, _, ca],
         ce in ^@schemas[:journal_entry],
-        ce.account_id == ca.id
+        on: ce.account_id == ca.id
       )
 end

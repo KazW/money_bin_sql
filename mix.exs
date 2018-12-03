@@ -1,7 +1,7 @@
 defmodule MoneyBin.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.0.3"
 
   def project do
     [
@@ -54,12 +54,13 @@ defmodule MoneyBin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
-      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.19.0", only: :dev, runtime: false},
+      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:inch_ex, only: :docs},
-      {:ecto, "~> 2.2"},
+      {:ecto, "~> 3.0"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:poison, "~> 3.1"}
+      {:jason, "~> 1.0"}
     ]
   end
 
