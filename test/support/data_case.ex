@@ -32,7 +32,7 @@ defmodule MoneyBin.DataCase do
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Repo)
+    :ok = Sandbox.checkout(Repo, ownership_timeout: 180_000_000)
 
     unless tags[:async] do
       Sandbox.mode(Repo, {:shared, self()})

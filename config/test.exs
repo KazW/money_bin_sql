@@ -9,11 +9,9 @@ config :postgrex, :json_library, Jason
 
 config :money_bin, MoneyBin.Test.Repo,
   migration_primary_key: [id: :uuid, type: :binary_id],
-  migration_timestamps: [type: :utc_datetime],
   database: "money_bin_test",
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
-  priv: "priv/test/repo",
-  ownership_timeout: 1_800_000
+  priv: "priv/test/repo"

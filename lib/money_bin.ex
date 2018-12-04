@@ -4,26 +4,24 @@ defmodule MoneyBin do
   def config_variables do
     quote do
       @repo Application.get_env(:money_bin, :settings)[:repo]
-      @tables Keyword.merge(
-                [
-                  account: "accounts",
-                  transaction: "transactions",
-                  journal_entry: "journal_entries",
-                  ledger: "ledgers",
-                  ledger_member: "ledger_members"
-                ],
-                Application.get_env(:money_bin, :settings)[:tables] || []
-              )
-      @schemas Keyword.merge(
-                 [
-                   account: MoneyBin.Account,
-                   transaction: MoneyBin.Transaction,
-                   journal_entry: MoneyBin.JournalEntry,
-                   ledger: MoneyBin.Ledger,
-                   ledger_member: MoneyBin.LedgerMember
-                 ],
-                 Application.get_env(:money_bin, :settings)[:schemas] || []
-               )
+
+      @tables [
+                account: "accounts",
+                transaction: "transactions",
+                journal_entry: "journal_entries",
+                ledger: "ledgers",
+                ledger_member: "ledger_members"
+              ]
+              |> Keyword.merge(Application.get_env(:money_bin, :settings)[:tables] || [])
+
+      @schemas [
+                 account: MoneyBin.Account,
+                 transaction: MoneyBin.Transaction,
+                 journal_entry: MoneyBin.JournalEntry,
+                 ledger: MoneyBin.Ledger,
+                 ledger_member: MoneyBin.LedgerMember
+               ]
+               |> Keyword.merge(Application.get_env(:money_bin, :settings)[:schemas] || [])
     end
   end
 

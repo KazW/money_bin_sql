@@ -26,6 +26,7 @@ defmodule MoneyBin.TransactionsTest do
 
     def account_entry_count(id) do
       query = from(je in JournalEntry)
+
       query
       |> where([je], je.account_id == ^id)
       |> select([je], count(je.id))
@@ -34,6 +35,7 @@ defmodule MoneyBin.TransactionsTest do
 
     def transaction_entry_count(id) do
       query = from(je in JournalEntry)
+
       query
       |> where([je], je.transaction_id == ^id)
       |> select([je], count(je.id))
@@ -42,6 +44,7 @@ defmodule MoneyBin.TransactionsTest do
 
     def journal_entry_for(tra_id, led_id) do
       query = from(je in JournalEntry)
+
       query
       |> where([je], je.transaction_id == ^tra_id)
       |> where([je], je.account_id == ^led_id)
