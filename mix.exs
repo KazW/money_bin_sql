@@ -16,20 +16,20 @@ defmodule MoneyBin.MixProject do
       aliases: aliases(),
 
       # Hex
-      description: "Flexible double entry based accounting for Ecto.",
+      description: "Flexible double entry based accounting for Elixir.",
       package: package(),
 
       # Docs
       name: "MoneyBin",
       docs: [
         source_ref: "v#{@version}",
-        main: "readme",
-        logo: "logo.png",
+        main: "main",
+        logo: "docs/logo.png",
         canonical: "https://hexdocs.pm/money_bin",
         source_url: "https://github.com/KazW/money_bin",
         extras: [
-          "README.md",
-          "USAGE.md"
+          "docs/main.md",
+          "docs/usage.md"
         ]
       ]
     ]
@@ -78,7 +78,7 @@ defmodule MoneyBin.MixProject do
       maintainers: ["Kaz Walker"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/KazW/money_bin"},
-      files: ~w(lib) ++ ~w(LICENSE.md mix.exs README.md)
+      files: ~w(lib docs) ++ ~w(LICENSE.md mix.exs README.md)
     ]
   end
 end
