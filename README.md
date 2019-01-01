@@ -1,36 +1,36 @@
-# MoneyBin [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/KazW/money_bin.svg?token=CRsKZKYLbnQZUawkaRLB&branch=master)](https://travis-ci.com/KazW/money_bin) [![Ebert](https://ebertapp.io/github/KazW/money_bin.svg)](https://ebertapp.io/github/KazW/money_bin) [![Inline docs](https://inch-ci.org/github/KazW/money_bin.svg)](https://inch-ci.org/github/KazW/money_bin)
+# MoneyBinSQL [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/KazW/money_bin_sql.svg?token=CRsKZKYLbnQZUawkaRLB&branch=master)](https://travis-ci.com/KazW/money_bin_sql) [![Ebert](https://ebertapp.io/github/KazW/money_bin_sql.svg)](https://ebertapp.io/github/KazW/money_bin_sql) [![Inline docs](https://inch-ci.org/github/KazW/money_bin_sql.svg)](https://inch-ci.org/github/KazW/money_bin_sql)
 
 Flexible double entry based accounting for Elixir.
 
 ## Installation
 
-Add MoneyBin to your deps:
+Add MoneyBinSQL to your deps:
 
 ```elixir
-{:money_bin, "~> 0.0.3"}
+{:money_bin_sql, "~> 0.0.3"}
 ```
 
-Configure which repo MoneyBin should use:
+Configure which repo MoneyBinSQL should use:
 
 ```elixir
-# MoneyBin configuration
-config :money_bin, :settings, repo: MyApp.Repo
+# MoneyBinSQL configuration
+config :money_bin_sql, :settings, repo: MyApp.Repo
 ```
 
 Generate a migration:
 
 ```shell
-mix ecto.gen.migration create_money_bin
+mix ecto.gen.migration create_money_bin_sql
 ```
 
 Modify it to be similar to this:
 
 ```elixir
-defmodule MyApp.Repo.Migrations.CreateMoneyBin do
+defmodule MyApp.Repo.Migrations.CreateMoneyBinSQL do
   use Ecto.Migration
 
   def change do
-    MoneyBin.Migrations.change()
+    MoneyBinSQL.Migrations.change()
   end
 end
 ```
@@ -40,8 +40,8 @@ end
 The `repo` setting is required, the `table` setting is optional.
 
 ```elixir
-# MoneyBin configuration
-config :money_bin, :settings,
+# MoneyBinSQL configuration
+config :money_bin_sql, :settings,
   repo: MyApp.Repo,
   tables: [
     account: "accounts",
@@ -58,7 +58,7 @@ Read on [GitHub](USAGE.md) or [Hex](usage.html).
 
 ## Documentation
 
-[Hex Docs](https://hexdocs.pm/money_bin)
+[Hex Docs](https://hexdocs.pm/money_bin_sql)
 
 ## License
 

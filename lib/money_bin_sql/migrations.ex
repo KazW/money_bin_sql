@@ -1,5 +1,5 @@
-defmodule MoneyBin.Migrations do
-  use MoneyBin, :config_variables
+defmodule MoneyBinSQL.Migrations do
+  use MoneyBinSQL, :config_variables
   use Ecto.Migration
   @moduledoc false
 

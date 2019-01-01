@@ -1,5 +1,5 @@
-defmodule MoneyBin.LedgerMember do
-  use MoneyBin, :schema
+defmodule MoneyBinSQL.LedgerMember do
+  use MoneyBinSQL, :schema
   @moduledoc false
 
   schema @tables[:ledger_member] do

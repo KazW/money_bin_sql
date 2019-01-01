@@ -1,9 +1,9 @@
-defmodule MoneyBin do
+defmodule MoneyBinSQL do
   @moduledoc false
 
   def config_variables do
     quote do
-      @repo Application.get_env(:money_bin, :settings)[:repo]
+      @repo Application.get_env(:money_bin_sql, :settings)[:repo]
 
       @tables [
                 account: "accounts",
@@ -12,22 +12,22 @@ defmodule MoneyBin do
                 ledger: "ledgers",
                 ledger_member: "ledger_members"
               ]
-              |> Keyword.merge(Application.get_env(:money_bin, :settings)[:tables] || [])
+              |> Keyword.merge(Application.get_env(:money_bin_sql, :settings)[:tables] || [])
 
       @schemas [
-                 account: MoneyBin.Account,
-                 transaction: MoneyBin.Transaction,
-                 journal_entry: MoneyBin.JournalEntry,
-                 ledger: MoneyBin.Ledger,
-                 ledger_member: MoneyBin.LedgerMember
+                 account: MoneyBinSQL.Account,
+                 transaction: MoneyBinSQL.Transaction,
+                 journal_entry: MoneyBinSQL.JournalEntry,
+                 ledger: MoneyBinSQL.Ledger,
+                 ledger_member: MoneyBinSQL.LedgerMember
                ]
-               |> Keyword.merge(Application.get_env(:money_bin, :settings)[:schemas] || [])
+               |> Keyword.merge(Application.get_env(:money_bin_sql, :settings)[:schemas] || [])
     end
   end
 
   def schema do
     quote do
-      use MoneyBin, :config_variables
+      use MoneyBinSQL, :config_variables
       use Ecto.Schema
       import Ecto.Changeset
       alias Decimal, as: D
@@ -44,11 +44,11 @@ defmodule MoneyBin do
 
   def service do
     quote do
-      use MoneyBin, :config_variables
+      use MoneyBinSQL, :config_variables
 
       alias Decimal, as: D
-      alias MoneyBin.Account
-      alias MoneyBin.Transaction
+      alias MoneyBinSQL.Account
+      alias MoneyBinSQL.Transaction
 
       import Ecto
       import Ecto.Changeset

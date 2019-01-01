@@ -1,5 +1,5 @@
-defmodule MoneyBin.Ledgers do
-  use MoneyBin, :service
+defmodule MoneyBinSQL.Ledgers do
+  use MoneyBinSQL, :service
 
   @moduledoc """
   This module is the primary interface for creating and retrieving ledgers.
@@ -8,7 +8,7 @@ defmodule MoneyBin.Ledgers do
   """
 
   @doc """
-  Creates a `MoneyBin.Ledger`.
+  Creates a `MoneyBinSQL.Ledger`.
 
   Must have at least 1 member accounts.
   `credit` is set to false by default, representing an asset account that
@@ -17,24 +17,24 @@ defmodule MoneyBin.Ledgers do
 
   ## Examples
 
-      iex> MoneyBin.Ledgers.create(%{
+      iex> MoneyBinSQL.Ledgers.create(%{
         members: [
           %{account_id: provider_acc_id, credit: true},
           %{account_id: provider_fees_id, credit: false}
         ]
       })
-      %MoneyBin.Ledger{}
+      %MoneyBinSQL.Ledger{}
 
   """
   def create(attrs \\ %{}), do: attrs |> @schemas[:ledger].changeset |> @repo.insert! |> find()
 
   @doc """
-  Retrieves a `MoneyBin.Ledger` with the aggregate data included, uses `ledger_query/0`.
+  Retrieves a `MoneyBinSQL.Ledger` with the aggregate data included, uses `ledger_query/0`.
 
   ## Examples
 
-      iex> MoneyBin.Ledgers.find(ledger_id)
-      %MoneyBin.Ledger{}
+      iex> MoneyBinSQL.Ledgers.find(ledger_id)
+      %MoneyBinSQL.Ledger{}
 
   """
   def find(%_{ledger_id: id}), do: find(id)
@@ -45,7 +45,7 @@ defmodule MoneyBin.Ledgers do
 
   ## Examples
 
-      iex> MoneyBin.Ledgers.ledger_query()
+      iex> MoneyBinSQL.Ledgers.ledger_query()
       %Ecto.Query{}
 
   """

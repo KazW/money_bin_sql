@@ -1,11 +1,11 @@
-defmodule MoneyBin.MixProject do
+defmodule MoneyBinSQL.MixProject do
   use Mix.Project
 
   @version "0.0.3"
 
   def project do
     [
-      app: :money_bin,
+      app: :money_bin_sql,
       version: @version,
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -20,13 +20,13 @@ defmodule MoneyBin.MixProject do
       package: package(),
 
       # Docs
-      name: "MoneyBin",
+      name: "MoneyBinSQL",
       docs: [
         source_ref: "v#{@version}",
         main: "main",
         logo: "docs/logo.png",
-        canonical: "https://hexdocs.pm/money_bin",
-        source_url: "https://github.com/KazW/money_bin",
+        canonical: "https://hexdocs.pm/money_bin_sql",
+        source_url: "https://github.com/KazW/money_bin_sql",
         extras: [
           "docs/main.md",
           "docs/usage.md"
@@ -77,7 +77,7 @@ defmodule MoneyBin.MixProject do
     [
       maintainers: ["Kaz Walker"],
       licenses: ["MIT"],
-      links: %{github: "https://github.com/KazW/money_bin"},
+      links: %{github: "https://github.com/KazW/money_bin_sql"},
       files: ~w(lib docs) ++ ~w(LICENSE.md mix.exs README.md)
     ]
   end

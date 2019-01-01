@@ -1,4 +1,4 @@
-defmodule MoneyBin.DataCase do
+defmodule MoneyBinSQL.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -15,17 +15,17 @@ defmodule MoneyBin.DataCase do
   use ExUnit.CaseTemplate
   alias Ecto.Adapters.SQL.Sandbox
   alias Ecto.Changeset
-  alias MoneyBin.Test.Repo
+  alias MoneyBinSQL.Test.Repo
 
   using do
     quote do
       alias Decimal, as: D
-      alias MoneyBin.Test.Repo
+      alias MoneyBinSQL.Test.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import MoneyBin.DataCase
+      import MoneyBinSQL.DataCase
 
       require IEx
     end

@@ -1,7 +1,7 @@
 import Ecto.Query
-alias MoneyBin.Test.Repo
+alias MoneyBinSQL.Test.Repo
 
-alias MoneyBin.{
+alias MoneyBinSQL.{
   Account,
   Accounts,
   JournalEntry,

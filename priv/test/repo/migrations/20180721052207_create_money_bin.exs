@@ -1,7 +1,7 @@
-defmodule MoneyBin.Test.Repo.Migrations.CreateMoneyBin do
+defmodule MoneyBinSQL.Test.Repo.Migrations.CreateMoneyBinSQL do
   use Ecto.Migration
 
   def change do
-    MoneyBin.Migrations.change()
+    MoneyBinSQL.Migrations.change()
   end
 end

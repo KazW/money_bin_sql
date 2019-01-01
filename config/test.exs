@@ -1,15 +1,15 @@
 use Mix.Config
 
-# MoneyBin configuration
-config :money_bin, :settings, repo: MoneyBin.Test.Repo
+# MoneyBinSQL configuration
+config :money_bin_sql, :settings, repo: MoneyBinSQL.Test.Repo
 
 # Ecto and DB configuration.
-config :money_bin, ecto_repos: [MoneyBin.Test.Repo]
+config :money_bin_sql, ecto_repos: [MoneyBinSQL.Test.Repo]
 config :postgrex, :json_library, Jason
 
-config :money_bin, MoneyBin.Test.Repo,
+config :money_bin_sql, MoneyBinSQL.Test.Repo,
   migration_primary_key: [id: :uuid, type: :binary_id],
-  database: "money_bin_test",
+  database: "money_bin_sql_test",
   username: "postgres",
   password: "postgres",
   hostname: "localhost",

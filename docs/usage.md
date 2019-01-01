@@ -2,7 +2,7 @@
 
 ## Conventions
 
-MoneyBin is designed to be a core component in a system that needs to track,
+MoneyBinSQL is designed to be a core component in a system that needs to track,
 transfer, and group balances in accounts. It is a pure library: simply a set
 of structs, behaviours, and modules, not it's own OTP application.
 
@@ -12,7 +12,7 @@ had transacted with.
 
 ## Accounts
 
-Accounts are the core primitive of MoneyBin, the data they are comprised of is
+Accounts are the core primitive of MoneyBinSQL, the data they are comprised of is
 mostly aggregate totals of journal entries. The metadata field is the only
 field of an account that can be set during creation and later updated, it is a
 map.
@@ -20,23 +20,23 @@ map.
 ### Creation
 
 ```elixir
-iex> MoneyBin.create_account(metadata)
-%MoneyBin.Account{}
+iex> MoneyBinSQL.create_account(metadata)
+%MoneyBinSQL.Account{}
 ```
 
 ### Retrival
 
 ```elixir
-iex> MoneyBin.get_account(account_id)
-%MoneyBin.Account{}
+iex> MoneyBinSQL.get_account(account_id)
+%MoneyBinSQL.Account{}
 
-iex> MoneyBin.get_account(bad_account_id)
+iex> MoneyBinSQL.get_account(bad_account_id)
 {:error, %{error: :account_not_found, message: "account not found"}}
 ```
 
 ### Modification
 
 ```elixir
-iex> MoneyBin.update_account(%MoneyBin.Account{metadata: new_metadata})
-{:ok, %MoneyBin.Account{}}
+iex> MoneyBinSQL.update_account(%MoneyBinSQL.Account{metadata: new_metadata})
+{:ok, %MoneyBinSQL.Account{}}
 ```

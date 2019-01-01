@@ -1,5 +1,5 @@
-defmodule MoneyBin.Account do
-  use MoneyBin, :schema
+defmodule MoneyBinSQL.Account do
+  use MoneyBinSQL, :schema
   @moduledoc false
 
   schema @tables[:account] do

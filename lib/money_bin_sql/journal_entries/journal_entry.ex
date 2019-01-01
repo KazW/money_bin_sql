@@ -1,5 +1,5 @@
-defmodule MoneyBin.JournalEntry do
-  use MoneyBin, :schema
+defmodule MoneyBinSQL.JournalEntry do
+  use MoneyBinSQL, :schema
   @moduledoc false
 
   schema @tables[:journal_entry] do

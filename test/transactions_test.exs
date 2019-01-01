@@ -1,10 +1,10 @@
-defmodule MoneyBin.TransactionsTest do
-  use MoneyBin.DataCase
+defmodule MoneyBinSQL.TransactionsTest do
+  use MoneyBinSQL.DataCase
 
-  alias MoneyBin.Accounts
-  alias MoneyBin.JournalEntry
-  alias MoneyBin.Transaction
-  alias MoneyBin.Transactions
+  alias MoneyBinSQL.Accounts
+  alias MoneyBinSQL.JournalEntry
+  alias MoneyBinSQL.Transaction
+  alias MoneyBinSQL.Transactions
 
   describe "transactions" do
     def fixture_set(amount \\ "1.5") do
@@ -137,7 +137,7 @@ defmodule MoneyBin.TransactionsTest do
           ]
         })
 
-      assert %MoneyBin.Transaction{} = transaction
+      assert %MoneyBinSQL.Transaction{} = transaction
       assert length(transaction.entries) == 4
     end
   end

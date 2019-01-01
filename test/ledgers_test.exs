@@ -1,10 +1,10 @@
-defmodule MoneyBin.LedgersTest do
-  use MoneyBin.DataCase
+defmodule MoneyBinSQL.LedgersTest do
+  use MoneyBinSQL.DataCase
 
-  alias MoneyBin.Accounts
-  alias MoneyBin.Ledger
-  alias MoneyBin.Ledgers
-  alias MoneyBin.Transactions
+  alias MoneyBinSQL.Accounts
+  alias MoneyBinSQL.Ledger
+  alias MoneyBinSQL.Ledgers
+  alias MoneyBinSQL.Transactions
 
   describe "transactions" do
     def account_set do
