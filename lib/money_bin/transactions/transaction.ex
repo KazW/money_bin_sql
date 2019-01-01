@@ -21,15 +21,15 @@ defmodule MoneyBin.Transaction do
 
   @fields [:reversal_for_transaction_id]
 
-  def changeset(transaction \\ %__MODULE__{}, attrs) do
-    transaction
-    |> cast(attrs, @fields)
-    |> constrained_assoc_cast(:reversed_transaction)
-    |> unique_constraint(:reversal_for_transaction_id)
-    |> cast_assoc(:entries, required: true)
-    |> validate_length(:entries, min: 2)
-    |> balance_and_set_amount
-  end
+  def changeset(transaction \\ %__MODULE__{}, attrs),
+    do:
+      transaction
+      |> cast(attrs, @fields)
+      |> constrained_assoc_cast(:reversed_transaction)
+      |> unique_constraint(:reversal_for_transaction_id)
+      |> cast_assoc(:entries, required: true)
+      |> validate_length(:entries, min: 2)
+      |> balance_and_set_amount
 
   defp balance_and_set_amount(%{valid?: false} = changeset), do: changeset
 

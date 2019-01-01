@@ -1,7 +1,7 @@
 defmodule MoneyBin.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.0.3"
 
   def project do
     [
@@ -16,18 +16,21 @@ defmodule MoneyBin.MixProject do
       aliases: aliases(),
 
       # Hex
-      description: "Flexible double entry based accounting for Ecto.",
+      description: "Flexible double entry based accounting for Elixir.",
       package: package(),
 
       # Docs
       name: "MoneyBin",
       docs: [
         source_ref: "v#{@version}",
-        main: "readme",
-        logo: "logo.png",
+        main: "main",
+        logo: "docs/logo.png",
         canonical: "https://hexdocs.pm/money_bin",
         source_url: "https://github.com/KazW/money_bin",
-        extras: ["README.md"]
+        extras: [
+          "docs/main.md",
+          "docs/usage.md"
+        ]
       ]
     ]
   end
@@ -51,12 +54,13 @@ defmodule MoneyBin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
-      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
-      {:inch_ex, only: :docs},
-      {:ecto, "~> 2.2"},
+      {:ex_doc, "~> 0.19.0", only: :dev, runtime: false},
+      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:inch_ex, ">= 0.0.0", only: :docs},
+      {:ecto, "~> 3.0"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:poison, "~> 3.1"}
+      {:jason, "~> 1.0", optional: true}
     ]
   end
 
@@ -74,7 +78,7 @@ defmodule MoneyBin.MixProject do
       maintainers: ["Kaz Walker"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/KazW/money_bin"},
-      files: ~w(lib) ++ ~w(LICENSE.md mix.exs README.md)
+      files: ~w(lib docs) ++ ~w(LICENSE.md mix.exs README.md)
     ]
   end
 end
